@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This repository is a template for all the repositories that will be used at the hackathon 2024 part of the symposium.
+This repository is was initially started as part of the hackathon 2024 part of the symposium.
 
 ## Contributors
 
