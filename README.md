@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This repository is was initially started as part of the hackathon 2024 part of the symposium.
+This repository was initially started as part of the hackathon 2024 part of the symposium.
 
 ## Contributors
 
