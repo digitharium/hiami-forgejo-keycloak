@@ -1,4 +1,4 @@
-# Template Repository
+# Authentication in Forgejo using Keycloak
 
 [![License: BSD3](https://img.shields.io/badge/License-BSD3-blue.svg)](https://opensource.org/license/bsd-3-clause/)
 
@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This repository was initially started as part of the hackathon 2024 part of the symposium.
+This repository was initially started as part of the hackathon 2024 part of the symposium to create integration between Keycloak and Forgejo.
 
 ## Contributors
 
@@ -16,13 +16,13 @@ This repository was initially started as part of the hackathon 2024 part of the 
 
 ## Instructions
 
-# Authentication in Forgejo using Keycloak
+First Install Keycloak and Forgejo by changing directory to folders keycloak and Forgejo and run the following command in each
 
-After the installation of keycloak and forgejo
+```docker compose up```
 
-## Part 1
+## Manual Configuration
 
-### Keycloak
+### Part 1: Keycloak Configuration
 
 - Create a Realm
 
@@ -51,9 +51,8 @@ After the installation of keycloak and forgejo
   - Set password
   - Put temporary as off
 
-## Part 2
 
-### Forgejo
+### Part 2: Forgejo Configuration
 
 - Connect as admin user
 
@@ -76,16 +75,14 @@ admin_view
  <img src="media/admin_view.png" alt="Admin View" title="Admin View" width="800" height="auto">
 
 
-## Part 3
-
-### Forgejo
+### Part3: Forgejo Create Account
 
 - Always on site administration under "Identity and Access" go in "User accounts"
 - Create a new user
 
-## Part 4
+### Part 4: Forgejo Logout and Keycloak Login
 
-Sign out from forgejo and sign in with Keycloak
+Sign out from Forgejo and sign in with Keycloak
 
  <img src="media/sign_in.png" alt="Sign In" title="Sign In" width="800" height="auto">
 
@@ -93,7 +90,7 @@ You, normally, arrived on a keycloack webpage with a form to login
 
 Enter credentials for the user you want to authenticate on keycloak
 
-Now you are redirect on forgejo with credentials again. Click on "Link to Existing account". Here you'll link the keycloak account to the forgejo account
+Now you are redirect on Forgejo with credentials again. Click on "Link to Existing account". Here you'll link the keycloak account to the Forgejo account
 
 Enter credentials for the user you want to authenticate on forgejo
 
