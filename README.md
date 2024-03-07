@@ -25,8 +25,9 @@ After the installation of keycloak and forgejo
 ### Keycloak
 
 - Create a Realm
-  <img src="http://hdoc.csirt-tooling.org/uploads/upload_b57b83e2dacd4f5dff3ae47ec0757bfd.png" title="" alt="" width="318">
 
+<img src="http://hdoc.csirt-tooling.org/uploads/upload_b57b83e2dacd4f5dff3ae47ec0757bfd.png" title="" alt="" width="318">
+<img src="media/create_realm.png" alt="Create Realm" title="Create Realm" width="318" height="auto">
 - Create a Client
   
   - Use "forgejo" as "Client ID"
