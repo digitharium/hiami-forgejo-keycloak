@@ -12,7 +12,7 @@ services:
       - USER_UID=1000
       - USER_GID=1000
       - FORGEJO__database__DB_TYPE=postgres
-      - FORGEJO__database__HOST=psqldb:${POSTGRES_EXTERNAL_PORT}
+      - FORGEJO__database__HOST=psqldb:${POSTGRES_INTERNAL_PORT}
       - FORGEJO__database__NAME=${POSTGRES_DB}
       - FORGEJO__database__USER=${POSTGRES_USER}
       - FORGEJO__database__PASSWD=${POSTGRES_PASSWORD}
