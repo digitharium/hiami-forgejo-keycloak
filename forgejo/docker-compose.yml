@@ -1,0 +1,48 @@
+version: "3"
+
+networks:
+  forgejo:
+    external: false
+
+services:
+  server:
+    image: codeberg.org/forgejo/forgejo:1.21
+    container_name: forgejo
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - FORGEJO__database__DB_TYPE=postgres
+      - FORGEJO__database__HOST=psqldb:${POSTGRES_EXTERNAL_PORT}
+      - FORGEJO__database__NAME=${POSTGRES_DB}
+      - FORGEJO__database__USER=${POSTGRES_USER}
+      - FORGEJO__database__PASSWD=${POSTGRES_PASSWORD}
+      - FORGEJO__server__DOMAIN=${FORGEJO_DOMAIN}
+      - FORGEJO__server__HTTP_PORT=${FORGEJO_INTERNAL_HTTP_PORT}
+      - APP_NAME=${FORGEJO_APP_NAME}
+    restart: unless-stopped
+    networks:
+      - forgejo
+    volumes:
+      - ./forgejo:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "${FORGEJO_EXTERNAL_HTTP_PORT}:${FORGEJO_INTERNAL_HTTP_PORT}"
+      - "${FORGEJO_EXTERNAL_SSH_PORT}:22"
+    depends_on:
+      - psqldb
+
+  psqldb:
+    image: postgres:16
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT}:${POSTGRES_INTERNAL_PORT}"
+    networks:
+      - forgejo
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    command: -p ${POSTGRES_INTERNAL_PORT}

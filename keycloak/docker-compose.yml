@@ -1,0 +1,46 @@
+version: "3"
+
+networks:
+  keycloak:
+    name: keycloak
+    external: false
+
+services:
+  keycloak:
+    #hostname: ${KEYCLOAK_DOMAIN} # not sure which hostname to use
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - ${KEYCLOAK_EXTERNAL_PORT}:${KEYCLOAK_INTERNAL_PORT}
+    environment:
+      KC_HOSTNAME: ${KEYCLOAK_DOMAIN}
+      KC_DB: postgres
+      KC_DB_URL_HOST: psqldb
+      KC_DB_URL_PORT: ${POSTGRES_EXTERNAL_PORT}
+      KC_DB_URL_DATABASE: ${POSTGRES_DB}
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_SCHEMA: 'public'
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HTTP_PORT: ${KEYCLOAK_INTERNAL_PORT}
+    command:
+      - start-dev
+    networks:
+      - keycloak
+    restart: unless-stopped
+  
+  psqldb:
+    image: postgres:16
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT}:${POSTGRES_INTERNAL_PORT}"
+    networks:
+      - keycloak
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    command: -p ${POSTGRES_INTERNAL_PORT}

@@ -1,4 +1,4 @@
-# Template Repository
+# Authentication in Forgejo using Keycloak
 
 [![License: BSD3](https://img.shields.io/badge/License-BSD3-blue.svg)](https://opensource.org/license/bsd-3-clause/)
 
@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This repository is a template for all the repositories that will be used at the hackathon 2024 part of the symposium.
+This repository was initially started as part of the hackathon 2024 part of the symposium to create integration between Keycloak and Forgejo.
 
 ## Contributors
 
@@ -16,16 +16,17 @@ This repository is a template for all the repositories that will be used at the 
 
 ## Instructions
 
-# Authentication in Forgejo using Keycloak
+First Install Keycloak and Forgejo by changing directory to folders keycloak and Forgejo and run the following command in each
 
-After the installation of keycloak and forgejo
+```docker compose up```
 
-## Part 1
+## Manual Configuration
 
-### Keycloak
+### Part 1: Keycloak Configuration
 
 - Create a Realm
-  <img src="http://hdoc.csirt-tooling.org/uploads/upload_b57b83e2dacd4f5dff3ae47ec0757bfd.png" title="" alt="" width="318">
+
+<img src="media/create_realm.png" alt="Create Realm" title="Create Realm" width="318" height="auto">
 
 - Create a Client
   
@@ -40,8 +41,8 @@ After the installation of keycloak and forgejo
 - Now go in credentials tab and save the client secret
   
   - Remark: this tab does not appears if the "Client authentication" is no set in the previous step.
-    
-    <img src="http://hdoc.csirt-tooling.org/uploads/upload_5764ce81b291eb90de65b9f8324d765e.png" title="" alt="" width="1002">
+
+    <img src="media/client_secret.png" alt="Client Secret" title="Client Secret" width="1002" height="auto">
 
 - Create a user
 
@@ -50,15 +51,14 @@ After the installation of keycloak and forgejo
   - Set password
   - Put temporary as off
 
-## Part 2
 
-### Forgejo
+### Part 2: Forgejo Configuration
 
 - Connect as admin user
 
 - Click on the right top corner on your profile pic, go in site administration
-  
-  <img src="http://hdoc.csirt-tooling.org/uploads/upload_f72b4b915f4237356e306c1daba9987f.png" title="" alt="" width="175">
+
+  <img src="media/site_admin.png" alt="Site Admin" title="Site Admin" width="175" height="auto">
 
 - Under "Identity and Access" go in "Authentication sources"
 
@@ -71,26 +71,26 @@ After the installation of keycloak and forgejo
   - In "Client Secret" enter the client secret you save earlier 
   - In "OpenID Connect Auto Discovery URL" enter http://YOUR-KEYCLOAK-IP:YOUR-KEYCLOAK-PORT/realms/YOUR-REALM-NAME/.well-known/openid-configuration
   - Now save your configuration
+admin_view
+ <img src="media/admin_view.png" alt="Admin View" title="Admin View" width="800" height="auto">
 
-![](http://hdoc.csirt-tooling.org/uploads/upload_c35cc627d4c1b1fc24cf9b25df1350bd.png)
 
-## Part 3
-
-### Forgejo
+### Part3: Forgejo Create Account
 
 - Always on site administration under "Identity and Access" go in "User accounts"
 - Create a new user
 
-## Part 4
+### Part 4: Forgejo Logout and Keycloak Login
 
-Sign out from forgejo and sign in with Keycloak
-<img title="" src="http://hdoc.csirt-tooling.org/uploads/upload_637748f9dce89b73d4c61530c20a6eaa.png" alt="" width="786">
+Sign out from Forgejo and sign in with Keycloak
+
+ <img src="media/sign_in.png" alt="Sign In" title="Sign In" width="800" height="auto">
 
 You, normally, arrived on a keycloack webpage with a form to login
 
 Enter credentials for the user you want to authenticate on keycloak
 
-Now you are redirect on forgejo with credentials again. Click on "Link to Existing account". Here you'll link the keycloak account to the forgejo account
+Now you are redirect on Forgejo with credentials again. Click on "Link to Existing account". Here you'll link the keycloak account to the Forgejo account
 
 Enter credentials for the user you want to authenticate on forgejo
 
