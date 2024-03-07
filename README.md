@@ -26,8 +26,8 @@ After the installation of keycloak and forgejo
 
 - Create a Realm
 
-<img src="http://hdoc.csirt-tooling.org/uploads/upload_b57b83e2dacd4f5dff3ae47ec0757bfd.png" title="" alt="" width="318">
 <img src="media/create_realm.png" alt="Create Realm" title="Create Realm" width="318" height="auto">
+
 - Create a Client
   
   - Use "forgejo" as "Client ID"
@@ -41,8 +41,8 @@ After the installation of keycloak and forgejo
 - Now go in credentials tab and save the client secret
   
   - Remark: this tab does not appears if the "Client authentication" is no set in the previous step.
-    
-    <img src="http://hdoc.csirt-tooling.org/uploads/upload_5764ce81b291eb90de65b9f8324d765e.png" title="" alt="" width="1002">
+
+    <img src="media/client_secret.png" alt="Client Secret" title="Client Secret" width="1002" height="auto">
 
 - Create a user
 
@@ -58,8 +58,8 @@ After the installation of keycloak and forgejo
 - Connect as admin user
 
 - Click on the right top corner on your profile pic, go in site administration
-  
-  <img src="http://hdoc.csirt-tooling.org/uploads/upload_f72b4b915f4237356e306c1daba9987f.png" title="" alt="" width="175">
+
+  <img src="media/site_admin.png" alt="Site Admin" title="Site Admin" width="175" height="auto">
 
 - Under "Identity and Access" go in "Authentication sources"
 
@@ -72,8 +72,9 @@ After the installation of keycloak and forgejo
   - In "Client Secret" enter the client secret you save earlier 
   - In "OpenID Connect Auto Discovery URL" enter http://YOUR-KEYCLOAK-IP:YOUR-KEYCLOAK-PORT/realms/YOUR-REALM-NAME/.well-known/openid-configuration
   - Now save your configuration
+admin_view
+ <img src="media/admin_view.png" alt="Admin View" title="Admin View" width="800" height="auto">
 
-![](http://hdoc.csirt-tooling.org/uploads/upload_c35cc627d4c1b1fc24cf9b25df1350bd.png)
 
 ## Part 3
 
@@ -85,7 +86,8 @@ After the installation of keycloak and forgejo
 ## Part 4
 
 Sign out from forgejo and sign in with Keycloak
-<img title="" src="http://hdoc.csirt-tooling.org/uploads/upload_637748f9dce89b73d4c61530c20a6eaa.png" alt="" width="786">
+
+ <img src="media/sign_in.png" alt="Sign In" title="Sign In" width="800" height="auto">
 
 You, normally, arrived on a keycloack webpage with a form to login
 
