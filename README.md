@@ -30,19 +30,20 @@ First Install Keycloak and Forgejo by changing directory to folders keycloak and
 
 - Create a Client
   
+  - Use "OpenID Connect" as "Client Type"
   - Use "forgejo" as "Client ID"
   - Tap Next
-  - Check "Client authentication"
+  - Make sure "Client authentication" is set to "On"
   - Tap Next
   - Enter http://YOUR-FORGEJO-IP:YOUR-FORGEJO-PORT/* for "Valid redirect URIs"
   - Enter http://YOUR-FORGEJO-IP:YOUR-FORGEJO-PORT/ for "Web origins"
   - Tap Save
 
 - Now go in credentials tab and save the client secret
-  
-  - Remark: this tab does not appears if the "Client authentication" is no set in the previous step.
 
-    <img src="media/client_secret.png" alt="Client Secret" title="Client Secret" width="1002" height="auto">
+  <img src="media/client_secret.png" alt="Client Secret" title="Client Secret" width="1002" height="auto">
+  
+  *Remark: this tab does not appears if the "Client authentication" is no set in the previous step.*
 
 - Create a user
 
@@ -68,7 +69,7 @@ First Install Keycloak and Forgejo by changing directory to folders keycloak and
   - Enter "Keycloak" in "Authentication name"
   - Select "OpenID Connect" in "OAuth2 Provider"
   - In "Client ID" tap "forgejo". This need to be the same name as the "Client ID" in keycloack
-  - In "Client Secret" enter the client secret you save earlier 
+  - In "Client Secret" enter the client secret you saved earlier 
   - In "OpenID Connect Auto Discovery URL" enter http://YOUR-KEYCLOAK-IP:YOUR-KEYCLOAK-PORT/realms/YOUR-REALM-NAME/.well-known/openid-configuration
   - Now save your configuration
 admin_view
