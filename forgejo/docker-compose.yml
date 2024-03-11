@@ -14,10 +14,12 @@ services:
       - FORGEJO__database__DB_TYPE=postgres
       - FORGEJO__database__HOST=psqldb:${POSTGRES_INTERNAL_PORT}
       - FORGEJO__database__NAME=${POSTGRES_DB}
+      - FORGEJO__database__SCHEMA=${POSTGRES_SCHEMA}
       - FORGEJO__database__USER=${POSTGRES_USER}
       - FORGEJO__database__PASSWD=${POSTGRES_PASSWORD}
       - FORGEJO__server__DOMAIN=${FORGEJO_DOMAIN}
       - FORGEJO__server__HTTP_PORT=${FORGEJO_INTERNAL_HTTP_PORT}
+      - FORGEJO__server__SSH_PORT=${FORGEJO_EXTERNAL_SSH_PORT}
       - APP_NAME=${FORGEJO_APP_NAME}
     restart: unless-stopped
     networks:
