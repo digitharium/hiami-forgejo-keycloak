@@ -1,8 +1,12 @@
 version: "3"
 
 networks:
-  forgejo:
+  forgejo-network:
     external: false
+  # use ssodev-network only for local development on localhost and/or if keycloak is running at the same machine as the other service connecting to it
+  ssodev-network:
+    name: ssodev-network
+    #external: true
 
 services:
   server:
@@ -23,7 +27,8 @@ services:
       - APP_NAME=${FORGEJO_APP_NAME}
     restart: unless-stopped
     networks:
-      - forgejo
+      - forgejo-network
+      - ssodev-network # use ssodev-network only for local development on localhost and/or if keycloak is running at the same machine as the other service connecting to it
     volumes:
       - ./forgejo:/data
       - /etc/timezone:/etc/timezone:ro
@@ -44,7 +49,7 @@ services:
     ports:
       - "${POSTGRES_EXTERNAL_PORT}:${POSTGRES_INTERNAL_PORT}"
     networks:
-      - forgejo
+      - forgejo-network
     volumes:
       - ./postgres:/var/lib/postgresql/data
     command: -p ${POSTGRES_INTERNAL_PORT}

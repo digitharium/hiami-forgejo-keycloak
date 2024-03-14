@@ -1,9 +1,13 @@
 version: "3"
 
 networks:
-  keycloak:
-    name: keycloak
+  keycloak-network:
+    name: keycloak-network
     external: false
+  # use ssodev-network only for local development on localhost and/or if keycloak is running at the same machine as the other service connecting to it
+  ssodev-network:
+    name: ssodev-network
+    #external: true
 
 services:
   keycloak:
@@ -27,7 +31,8 @@ services:
     command:
       - start-dev
     networks:
-      - keycloak
+      - keycloak-network
+      - ssodev-network # use ssodev-network only for local development on localhost and/or if keycloak is running at the same machine as the other service connecting to it
     restart: unless-stopped
   
   psqldb:
@@ -40,7 +45,7 @@ services:
     ports:
       - "${POSTGRES_EXTERNAL_PORT}:${POSTGRES_INTERNAL_PORT}"
     networks:
-      - keycloak
+      - keycloak-network
     volumes:
       - ./postgres:/var/lib/postgresql/data
     command: -p ${POSTGRES_INTERNAL_PORT}
