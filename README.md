@@ -45,7 +45,7 @@ First Install Keycloak and Forgejo by changing directory to folders keycloak and
   
   *Remark: this tab does not appears if the "Client authentication" is no set in the previous step.*
 
-- Create a user
+- From the Users' Manage Section, Create a user
 
 - Add a new password by going in credentials tab after the user creation
   
