@@ -7,6 +7,11 @@ networks:
   ssodev-network:
     name: ssodev-network
     #external: true
+# volumes:
+#   forgejo:
+#     external: true
+#   postgres:
+#     external: true
 
 services:
   server:
