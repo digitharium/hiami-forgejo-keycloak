@@ -20,6 +20,11 @@ First Install Keycloak and Forgejo by changing directory to folders keycloak and
 
 ```docker compose up```
 
+In case you don't have docker engine installed install it as per the instructions here: https://docs.docker.com/engine/install/fedora/#install-using-the-repository
+
+And then start docker with:
+```sudo systemctl start docker```
+
 ## Manual Configuration
 
 ### Part 1: Keycloak Configuration
