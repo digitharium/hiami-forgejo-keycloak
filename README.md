@@ -31,7 +31,9 @@ And then start docker with:
 
 - Create a Realm
 
-<img src="media/create_realm.png" alt="Create Realm" title="Create Realm" width="318" height="auto">
+<img src="media/create_realm.png" alt="Create Realm" title="Create Realm" width="250" height="auto">
+
+*If you intend to have multiple applications integrated with Keycloak, using the same realm for multiple applications/clients will enable the users to SSO seamlessly without the need for re-login. Otherwise you can create 1 realm per application/client.*
 
 - Create a Client
   
