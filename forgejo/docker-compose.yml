@@ -7,10 +7,15 @@ networks:
   ssodev-network:
     name: ssodev-network
     #external: true
+# volumes:
+#   forgejo:
+#     external: true
+#   postgres:
+#     external: true
 
 services:
   server:
-    image: codeberg.org/forgejo/forgejo:1.21
+    image: codeberg.org/forgejo/forgejo:1.21.10-0
     container_name: forgejo
     environment:
       - USER_UID=1000
@@ -24,7 +29,19 @@ services:
       - FORGEJO__server__DOMAIN=${FORGEJO_DOMAIN}
       - FORGEJO__server__HTTP_PORT=${FORGEJO_INTERNAL_HTTP_PORT}
       - FORGEJO__server__SSH_PORT=${FORGEJO_EXTERNAL_SSH_PORT}
+      - FORGEJO__service__REQUIRE_SIGNIN_VIEW=false
       - APP_NAME=${FORGEJO_APP_NAME}
+      - FORGEJO__oauth2_client__ENABLE_AUTO_REGISTRATION=true
+      - FORGEJO__openid__ENABLE_OPENID_SIGNIN=false
+      - FORGEJO__openid__ENABLE_OPENID_SIGNUP=false
+      - FORGEJO__service__DISABLE_REGISTRATION=false #### change to true once the connection to keycloak is set and an admin user is enabled
+      - FORGEJO__service__SHOW_REGISTRATION_BUTTON=true #### change to false once the connection to keycloak is set and an admin user is enabled
+      - FORGEJO__service__ENABLE_BASIC_AUTHENTICATION=true #### change to false once the connection to keycloak is set and an admin user is enabled
+      - FORGEJO__service__DEFAULT_ALLOW_CREATE_ORGANIZATION=true # change to false at a later stage
+      - FORGEJO__service__DEFAULT_USER_IS_RESTRICTED=false # change to true at a later stage
+      - FORGEJO__service__ALLOW_ONLY_EXTERNAL_REGISTRATION=false  #### change to true once the connection to keycloak is set and an admin user is enabled
+      - FORGEJO__service__ALLOW_ONLY_INTERNAL_REGISTRATION=false #### change to false once the connection to keycloak is set and an admin user is enabled
+
     restart: unless-stopped
     networks:
       - forgejo-network
@@ -46,6 +63,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_SCHEMA=${POSTGRES_SCHEMA}
     ports:
       - "${POSTGRES_EXTERNAL_PORT}:${POSTGRES_INTERNAL_PORT}"
     networks:

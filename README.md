@@ -20,13 +20,20 @@ First Install Keycloak and Forgejo by changing directory to folders keycloak and
 
 ```docker compose up```
 
+In case you don't have docker engine installed install it as per the instructions here: https://docs.docker.com/engine/install/fedora/#install-using-the-repository
+
+And then start docker with:
+```sudo systemctl start docker```
+
 ## Manual Configuration
 
 ### Part 1: Keycloak Configuration
 
 - Create a Realm
 
-<img src="media/create_realm.png" alt="Create Realm" title="Create Realm" width="318" height="auto">
+<img src="media/create_realm.png" alt="Create Realm" title="Create Realm" width="250" height="auto">
+
+*If you intend to have multiple applications integrated with Keycloak, using the same realm for multiple applications/clients will enable the users to SSO seamlessly without the need for re-login. Otherwise you can create 1 realm per application/client.*
 
 - Create a Client
   
@@ -43,9 +50,9 @@ First Install Keycloak and Forgejo by changing directory to folders keycloak and
 
   <img src="media/client_secret.png" alt="Client Secret" title="Client Secret" width="1002" height="auto">
   
-  *Remark: this tab does not appears if the "Client authentication" is no set in the previous step.*
+  *Remark: this tab does not appears if the "Client authentication" is not set in the previous step.*
 
-- Create a user
+- From the Users' Manage Section, Create a user
 
 - Add a new password by going in credentials tab after the user creation
   
