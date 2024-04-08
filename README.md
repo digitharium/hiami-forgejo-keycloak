@@ -50,7 +50,7 @@ And then start docker with:
 
   <img src="media/client_secret.png" alt="Client Secret" title="Client Secret" width="1002" height="auto">
   
-  *Remark: this tab does not appears if the "Client authentication" is no set in the previous step.*
+  *Remark: this tab does not appears if the "Client authentication" is not set in the previous step.*
 
 - From the Users' Manage Section, Create a user
 
