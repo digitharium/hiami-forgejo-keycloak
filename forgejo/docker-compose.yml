@@ -32,6 +32,8 @@ services:
       - FORGEJO__service__REQUIRE_SIGNIN_VIEW=false
       - APP_NAME=${FORGEJO_APP_NAME}
       - FORGEJO__oauth2_client__ENABLE_AUTO_REGISTRATION=true
+      - FORGEJO__oauth2_client__ACCOUNT_LINKING=auto
+      - FORGEJO__oauth2_client__USERNAME=email
       - FORGEJO__openid__ENABLE_OPENID_SIGNIN=false
       - FORGEJO__openid__ENABLE_OPENID_SIGNUP=false
       - FORGEJO__service__DISABLE_REGISTRATION=false #### change to true once the connection to keycloak is set and an admin user is enabled

@@ -1,11 +1,14 @@
 #! /bin/bash
 
-# in order to copy this file to the container:
-# docker cp ./keycloak/cli_init/ 3d202f9b1801:/opt/keycloak/
+# # in order to copy this file to the container:
+# docker cp ./keycloak/cli_init/ $(docker container ls --all --quiet --filter "name=^keycloak$"):/opt/keycloak/
+# # make executable
 # docker exec --privileged -i keycloak chmod 755 -R /opt/keycloak/cli_init
+# # connect to the docker container and then run /opt/keycloak/cli_init/init.sh
+# docker exec --privileged -i keycloak sh /opt/keycloak/cli_init/init.sh
 
 set -o allexport
-source ./.env
+source $(dirname "$0")/.env
 set +o allexport
 
 export PATH=$PATH:$keycloak_path
