@@ -15,7 +15,7 @@ networks:
 
 services:
   server:
-    image: codeberg.org/forgejo/forgejo:1.21.10-0
+    image: codeberg.org/forgejo/forgejo:7 #1.22.0
     container_name: forgejo
     environment:
       - USER_UID=1000
@@ -36,8 +36,8 @@ services:
       - FORGEJO__oauth2_client__USERNAME=email
       - FORGEJO__openid__ENABLE_OPENID_SIGNIN=false
       - FORGEJO__openid__ENABLE_OPENID_SIGNUP=false
-      - FORGEJO__service__DISABLE_REGISTRATION=false #### change to true once the connection to keycloak is set and an admin user is enabled
-      - FORGEJO__service__SHOW_REGISTRATION_BUTTON=true #### change to false once the connection to keycloak is set and an admin user is enabled
+      - FORGEJO__service__DISABLE_REGISTRATION=true #### change to true once the connection to keycloak is set and an admin user is enabled
+      - FORGEJO__service__SHOW_REGISTRATION_BUTTON=false #### change to false once the connection to keycloak is set and an admin user is enabled
       - FORGEJO__service__ENABLE_BASIC_AUTHENTICATION=true #### change to false once the connection to keycloak is set and an admin user is enabled
       - FORGEJO__service__DEFAULT_ALLOW_CREATE_ORGANIZATION=true # change to false at a later stage
       - FORGEJO__service__DEFAULT_USER_IS_RESTRICTED=false # change to true at a later stage
