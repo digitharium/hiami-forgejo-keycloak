@@ -29,23 +29,42 @@ fi
 # Create the realm
 if [ $create_realm = "true" ]; then
   echo "Creating realm '$REALM'"
-  kcadm.sh create realms -s realm=$REALM -s enabled=true
+  RID=$(kcadm.sh create realms \
+    -s realm=$REALM \
+    -s enabled=true \
+    -s registrationAllowed=true \
+    -s resetPasswordAllowed=false \
+    -s rememberMe=true \
+    -s registrationEmailAsUsername=false \
+    -s loginWithEmailAllowed=true \
+    -s duplicateEmailsAllowed=false \
+    -s verifyEmail=false \
+    -s editUsernameAllowed=false \
+    -i \
+    )
+    # 
+  echo "Realm '$RID' Created"
 else
   echo "Not creating realm!"
 fi
 
 # Create Client
-kcadm.sh create clients -r $REALM \
-   -s clientId=$client_id \
-   -s enabled=true \
-   -s publicClient=false \
-   -s 'redirectUris=["'$client_redirect_uris'"]' \
-   -s 'webOrigins=["'$client_web_origins'"]' \
-   -s protocol=openid-connect \
-   -s directAccessGrantsEnabled=true \
-   -s serviceAccountsEnabled=true \
-   -s authorizationServicesEnabled=true \
-   -s secret=$client_secret
+echo "Creating client '$client_id'"
+CID=$(kcadm.sh create clients \
+  -r $REALM \
+  -s clientId=$client_id \
+  -s enabled=true \
+  -s publicClient=false \
+  -s 'redirectUris=["'$client_redirect_uris'"]' \
+  -s 'webOrigins=["'$client_web_origins'"]' \
+  -s protocol=openid-connect \
+  -s directAccessGrantsEnabled=true \
+  -s serviceAccountsEnabled=true \
+  -s authorizationServicesEnabled=true \
+  -s secret=$client_secret \
+  -i
+  )
+echo "Client '$CID' Created"
 
 # # Create a group
 # GROUP_NAME=$APP-users
