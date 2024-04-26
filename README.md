@@ -82,31 +82,15 @@ And then start docker with:
 admin_view
  <img src="media/admin_view.png" alt="Admin View" title="Admin View" width="800" height="auto">
 
+### That's it!
+New users created in the keycloak realm will be able to login to forgejo by clicking on login using keycloak
+You can also enable the creation of new users from keycloak which will automatically be able to sign in to forgejo:
 
-### Part3: Forgejo Create Account
+<img src="media/kc_user_registration_enabled.png" alt="Admin View" title="Admin View" width="200" height="auto">
 
-- Always on site administration under "Identity and Access" go in "User accounts"
-- Create a new user
-
-### Part 4: Forgejo Logout and Keycloak Login
-
-Sign out from Forgejo and sign in with Keycloak
-
- <img src="media/sign_in.png" alt="Sign In" title="Sign In" width="800" height="auto">
-
-You, normally, arrived on a keycloack webpage with a form to login
-
-Enter credentials for the user you want to authenticate on keycloak
-
-Now you are redirect on Forgejo with credentials again. Click on "Link to Existing account". Here you'll link the keycloak account to the Forgejo account
-
-Enter credentials for the user you want to authenticate on forgejo
-
-You might be asked to update your password.
-
-And That's it, You have finished.
 
 ## Authorization
+TODO?
 
 We did not success in having authorization to work with keycloak. The crux of the issue is that neither `forgejo` nor `gitea` support nested structures for roles.
 See the following issues:
