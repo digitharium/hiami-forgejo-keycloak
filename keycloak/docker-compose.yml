@@ -1,5 +1,4 @@
-version: "3"
-
+# version: "3"
 networks:
   keycloak-network:
     name: keycloak-network

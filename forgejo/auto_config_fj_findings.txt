@@ -1,0 +1,88 @@
+
+# Authentication Type: OAuth2
+type: 6
+# Authentication name: Keycloak
+name: Keycloak
+# OAuth2 Provider: OpenID Connect
+oauth2_provider: openidConnect
+# Client ID: forgejo (from .env)
+oauth2_key: forgejo
+# Client Secret: 1pq0gKIrKY5Vi7EZeeqNXcsrRnGJWA4J (from .env)
+oauth2_secret: 1pq0gKIrKY5Vi7EZeeqNXcsrRnGJWA4J
+# OpenID Connect Auto Discovery URL: http://YOUR-KEYCLOAK-IP:YOUR-KEYCLOAK-PORT/realms/YOUR-REALM-NAME/.well-known/openid-configuration
+open_id_connect_auto_discovery_url: http://keycloak:53531/realms/Humanitarians/.well-known/openid-configuration
+
+security_protocol: 0
+port: 0
+search_page_size: 0
+smtp_auth: PLAIN
+smtp_port: 0
+sspi_auto_create_users: on
+sspi_auto_activate_users: on
+sspi_strip_domain_names: on
+sspi_separator_replacement: _
+sspi_default_language: 
+is_sync_enabled: on
+is_active: on
+
+# a Post request to: http://localhost:30002/admin/auths/new
+
+# Full payload example:
+_autofill_dummy_username: 
+_autofill_dummy_password: 
+_csrf: cEeHlpD77na0Z2PJ8EFatJKXD_k6MTcxNDQ2NzMxMjA2Njc4NzIzOA
+type: 6
+name: Keycloak
+security_protocol: 0
+host: 
+port: 0
+bind_dn: 
+bind_password: 
+user_base: 
+user_dn: 
+filter: 
+admin_filter: 
+restricted_filter: 
+attribute_username: 
+attribute_name: 
+attribute_surname: 
+attribute_mail: 
+attribute_ssh_public_key: 
+attribute_avatar: 
+group_dn: 
+group_member_uid: 
+user_uid: 
+group_filter: 
+group_team_map: 
+search_page_size: 0
+smtp_auth: PLAIN
+smtp_host: 
+smtp_port: 0
+helo_hostname: 
+allowed_domains: 
+pam_service_name: 
+pam_email_domain: 
+oauth2_provider: openidConnect
+oauth2_key: forgejo2
+oauth2_secret: 1pq0gKIrKY5Vi7EZeeqNXcsrRnGJWA4J
+oauth2_icon_url: 
+open_id_connect_auto_discovery_url: http://keycloak:53531/realms/Humanitarians/.well-known/openid-configuration
+oauth2_auth_url: 
+oauth2_token_url: 
+oauth2_profile_url: 
+oauth2_email_url: 
+oauth2_tenant: 
+oauth2_scopes: 
+oauth2_required_claim_name: 
+oauth2_required_claim_value: 
+oauth2_group_claim_name: 
+oauth2_admin_group: 
+oauth2_restricted_group: 
+oauth2_group_team_map: 
+sspi_auto_create_users: on
+sspi_auto_activate_users: on
+sspi_strip_domain_names: on
+sspi_separator_replacement: _
+sspi_default_language: 
+is_sync_enabled: on
+is_active: on

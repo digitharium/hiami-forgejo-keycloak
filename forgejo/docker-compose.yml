@@ -1,5 +1,4 @@
-version: "3"
-
+# version: "3"
 networks:
   forgejo-network:
     external: false
@@ -36,10 +35,10 @@ services:
       - FORGEJO__oauth2_client__USERNAME=email
       - FORGEJO__openid__ENABLE_OPENID_SIGNIN=false
       - FORGEJO__openid__ENABLE_OPENID_SIGNUP=false
-      - FORGEJO__service__DISABLE_REGISTRATION=true #### change to true once the connection to keycloak is set and an admin user is enabled
-      - FORGEJO__service__SHOW_REGISTRATION_BUTTON=false #### change to false once the connection to keycloak is set and an admin user is enabled
-      - FORGEJO__service__ENABLE_BASIC_AUTHENTICATION=true #### change to false once the connection to keycloak is set and an admin user is enabled
-      - FORGEJO__service__DEFAULT_ALLOW_CREATE_ORGANIZATION=true # change to false at a later stage
+      - FORGEJO__service__DISABLE_REGISTRATION=true
+      - FORGEJO__service__SHOW_REGISTRATION_BUTTON=false
+      - FORGEJO__service__ENABLE_BASIC_AUTHENTICATION=false #### change to false once the connection to keycloak is set and an admin user is enabled
+      - FORGEJO__service__DEFAULT_ALLOW_CREATE_ORGANIZATION=false # change to false at a later stage
       - FORGEJO__service__DEFAULT_USER_IS_RESTRICTED=false # change to true at a later stage
       - FORGEJO__service__ALLOW_ONLY_EXTERNAL_REGISTRATION=false  #### change to true once the connection to keycloak is set and an admin user is enabled
       - FORGEJO__service__ALLOW_ONLY_INTERNAL_REGISTRATION=false #### change to false once the connection to keycloak is set and an admin user is enabled
