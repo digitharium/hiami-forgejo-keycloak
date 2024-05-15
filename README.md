@@ -14,6 +14,10 @@ This repository was initially started as part of the hackathon 2024 part of the 
 * @Chrisr3d
 * @DavidCruciani
 
+## Maintainers
+
+* @SDKAAA
+
 ## Instructions
 
 First Install Keycloak and Forgejo by changing directory to folders keycloak and Forgejo and run the following command in each
@@ -24,6 +28,19 @@ In case you don't have docker engine installed install it as per the instruction
 
 And then start docker with:
 ```sudo systemctl start docker```
+
+## Automatic Configuration
+
+### Keycloak
+- Initiate keycloak by running the script under the keycloak folder and running this command:
+
+  ```./post_compose_kc.sh```
+  
+  *This will create the realm and client in keycloak*
+  *Remark: in case you change the default values make sure to update the .env files under cli_init*
+
+### [WIP] Forgejo
+- Forgejo Automatic config still under construction, please skip to the manual config
 
 ## Manual Configuration
 
@@ -52,19 +69,14 @@ And then start docker with:
   
   *Remark: this tab does not appears if the "Client authentication" is not set in the previous step.*
 
-- From the Users' Manage Section, Create a user
-
-- Add a new password by going in credentials tab after the user creation
-  
-  - Set password
-  - Put temporary as off
-
 
 ### Part 2: Forgejo Configuration
 
-- Connect as admin user
+- Navigate in the browser to the Forgejo site at http://localhost:30002 and add a username, password and email for the admin user and lunch the setup.
 
-- Click on the right top corner on your profile pic, go in site administration
+- Connect as admin user (usually after setup, the admin user is automatically connected)
+
+- In Forgejo, Click on the right top corner on your profile pic, go in site administration
 
   <img src="media/site_admin.png" alt="Site Admin" title="Site Admin" width="175" height="auto">
 

@@ -42,6 +42,11 @@ services:
       - FORGEJO__service__DEFAULT_USER_IS_RESTRICTED=false # change to true at a later stage
       - FORGEJO__service__ALLOW_ONLY_EXTERNAL_REGISTRATION=false  #### change to true once the connection to keycloak is set and an admin user is enabled
       - FORGEJO__service__ALLOW_ONLY_INTERNAL_REGISTRATION=false #### change to false once the connection to keycloak is set and an admin user is enabled
+      - FORGEJO__service.explore__REQUIRE_SIGNIN_VIEW=true
+      - FORGEJO__service.explore__DISABLE_USERS_PAGE=false
+      - FORGEJO__service__DEFAULT_USER_VISIBILITY=public
+      - FORGEJO__service__DEFAULT_ORG_VISIBILITY=public
+      - FORGEJO__service__DEFAULT_ORG_MEMBER_VISIBLE=false
 
     restart: unless-stopped
     networks:
