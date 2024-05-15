@@ -14,11 +14,33 @@ This repository was initially started as part of the hackathon 2024 part of the 
 * @Chrisr3d
 * @DavidCruciani
 
+## Maintainers
+
+* @SDKAAA
+
 ## Instructions
 
 First Install Keycloak and Forgejo by changing directory to folders keycloak and Forgejo and run the following command in each
 
 ```docker compose up```
+
+In case you don't have docker engine installed install it as per the instructions here: https://docs.docker.com/engine/install/fedora/#install-using-the-repository
+
+And then start docker with:
+```sudo systemctl start docker```
+
+## Automatic Configuration
+
+### Keycloak
+- Initiate keycloak by running the script under the keycloak folder and running this command:
+
+  ```./post_compose_kc.sh```
+  
+  *This will create the realm and client in keycloak*
+  *Remark: in case you change the default values make sure to update the .env files under cli_init*
+
+### [WIP] Forgejo
+- Forgejo Automatic config still under construction, please skip to the manual config
 
 ## Manual Configuration
 
@@ -26,7 +48,9 @@ First Install Keycloak and Forgejo by changing directory to folders keycloak and
 
 - Create a Realm
 
-<img src="media/create_realm.png" alt="Create Realm" title="Create Realm" width="318" height="auto">
+<img src="media/create_realm.png" alt="Create Realm" title="Create Realm" width="250" height="auto">
+
+*If you intend to have multiple applications integrated with Keycloak, using the same realm for multiple applications/clients will enable the users to SSO seamlessly without the need for re-login. Otherwise you can create 1 realm per application/client.*
 
 - Create a Client
   
@@ -43,21 +67,16 @@ First Install Keycloak and Forgejo by changing directory to folders keycloak and
 
   <img src="media/client_secret.png" alt="Client Secret" title="Client Secret" width="1002" height="auto">
   
-  *Remark: this tab does not appears if the "Client authentication" is no set in the previous step.*
-
-- Create a user
-
-- Add a new password by going in credentials tab after the user creation
-  
-  - Set password
-  - Put temporary as off
+  *Remark: this tab does not appears if the "Client authentication" is not set in the previous step.*
 
 
 ### Part 2: Forgejo Configuration
 
-- Connect as admin user
+- Navigate in the browser to the Forgejo site at http://localhost:30002 and add a username, password and email for the admin user and lunch the setup.
 
-- Click on the right top corner on your profile pic, go in site administration
+- Connect as admin user (usually after setup, the admin user is automatically connected)
+
+- In Forgejo, Click on the right top corner on your profile pic, go in site administration
 
   <img src="media/site_admin.png" alt="Site Admin" title="Site Admin" width="175" height="auto">
 
@@ -75,31 +94,15 @@ First Install Keycloak and Forgejo by changing directory to folders keycloak and
 admin_view
  <img src="media/admin_view.png" alt="Admin View" title="Admin View" width="800" height="auto">
 
+### That's it!
+New users created in the keycloak realm will be able to login to forgejo by clicking on login using keycloak
+You can also enable the creation of new users from keycloak which will automatically be able to sign in to forgejo:
 
-### Part3: Forgejo Create Account
+<img src="media/kc_user_registration_enabled.png" alt="Admin View" title="Admin View" width="200" height="auto">
 
-- Always on site administration under "Identity and Access" go in "User accounts"
-- Create a new user
-
-### Part 4: Forgejo Logout and Keycloak Login
-
-Sign out from Forgejo and sign in with Keycloak
-
- <img src="media/sign_in.png" alt="Sign In" title="Sign In" width="800" height="auto">
-
-You, normally, arrived on a keycloack webpage with a form to login
-
-Enter credentials for the user you want to authenticate on keycloak
-
-Now you are redirect on Forgejo with credentials again. Click on "Link to Existing account". Here you'll link the keycloak account to the Forgejo account
-
-Enter credentials for the user you want to authenticate on forgejo
-
-You might be asked to update your password.
-
-And That's it, You have finished.
 
 ## Authorization
+TODO?
 
 We did not success in having authorization to work with keycloak. The crux of the issue is that neither `forgejo` nor `gitea` support nested structures for roles.
 See the following issues:
