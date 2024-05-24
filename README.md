@@ -102,7 +102,41 @@ You can also enable the creation of new users from keycloak which will automatic
 
 
 ## Authorization
-TODO?
+
+The below steps explain how to provide basic authorization where access to Forgejo is controlled by whether a user is member of a Keycloak group or not.
+
+This method will use a specific "Required Claim Name" and "Required Claim Value" in Forgejo while sending this info from Keycloak using the client scope mappers.
+
+Hereafter KC refers to Keycloak and FJ to Forgejo.
+
+* in KC create a group called forgejogroup
+* in FJ create 2 users (user1 and user2 obviousbly create them throught he SSO to KC)
+* add user user1 to forgejogroup (do NOT add user2 to the group; the purpose of user2 is to test if the authorization works for user and not for user2)
+* in KC, edit the group and create the attribute with the following:
+  * Key: user_type
+  * Value: forgejo_user
+* in FJ, in admin settings/Identity&Access/Authentication sources, edit the Keycloak source and enter the below values in the below fields:
+  * Required claim name: user_type
+  * Required claim value: forgejo_user
+* Update the authentication source.
+* in KC, under Client Scopes, create a new client scope called forgejoclientscope
+* under this KC client scope, add a mapper with the following info:
+  * Mapper Type: "Group Membership"
+  * Name: forgejogroup
+  * Token Claim Name: forgejogrouptoken
+* under this KC client scope, add a second mapper with the following info:
+  * Mapper Type: "User Attribute"
+  * Name: user_type
+  * User Attribute: user_type
+  * Token Claim Name: user_type
+* in KC, edit the client and add the above selected client to the scopes of the client
+
+That's it!
+<br>user1 can now sign in and get access to FJ while user2 can sign in but will receive an error.
+
+.
+
+*Full Authorization still needs to be investigated:*
 
 We did not success in having authorization to work with keycloak. The crux of the issue is that neither `forgejo` nor `gitea` support nested structures for roles.
 See the following issues:
