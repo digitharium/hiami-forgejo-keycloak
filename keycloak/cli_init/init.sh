@@ -66,6 +66,41 @@ CID=$(kcadm.sh create clients \
   )
 echo "Client '$CID' Created"
 
+# Create Group
+# group_name=forgejogroup
+
+# Create user1 and user 2
+# user1=user1
+# user1_pwd=user1
+# user2=user2
+# user2_pwd=user2
+
+# Add Attribute to group
+# group_attribute_key=user_type
+# group_attribute_value=forgejo_user
+
+# Create Client Scope
+# client_scope=forgejoclientscope
+
+# Create 2 Client Scope Mappers
+# client_scope_mapper_1_type="Group Membership"
+# client_scope_mapper_1_name=forgejogroup
+# client_scope_mapper_1_token_claim_name=forgejogrouptoken
+# client_scope_mapper_2_type="User Attribute"
+# client_scope_mapper_2_name=user_type
+# client_scope_mapper_2_user_attribute=user_type
+# client_scope_mapper_2_token_claim_name=user_type
+
+# Add Client to client Scopes
+
+
+
+
+
+
+#########################################
+# the below is for reference. to be deleted later
+
 # # Create a group
 # GROUP_NAME=$APP-users
 # kcadm.sh create groups -r $REALM -s name=$GROUP_NAME 2>&1 | tee "$TMPFILE"
