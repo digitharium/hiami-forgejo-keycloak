@@ -13,6 +13,7 @@ This repository was initially started as part of the hackathon 2024 part of the 
 * @Gallypette
 * @Chrisr3d
 * @DavidCruciani
+* @SDKAAA
 
 ## Maintainers
 
@@ -90,6 +91,8 @@ And then start docker with:
   - In "Client ID" tap "forgejo". This need to be the same name as the "Client ID" in keycloack
   - In "Client Secret" enter the client secret you saved earlier 
   - In "OpenID Connect Auto Discovery URL" enter http://YOUR-KEYCLOAK-IP:YOUR-KEYCLOAK-PORT/realms/YOUR-REALM-NAME/.well-known/openid-configuration
+  - Required claim name: user_type
+  - Required claim value: forgejo_user
   - Now save your configuration
 admin_view
  <img src="media/admin_view.png" alt="Admin View" title="Admin View" width="800" height="auto">

@@ -14,7 +14,7 @@ networks:
 
 services:
   server:
-    image: codeberg.org/forgejo/forgejo:7 #1.22.0
+    image: codeberg.org/forgejo/forgejo:7.0.3
     container_name: forgejo
     environment:
       - USER_UID=1000
