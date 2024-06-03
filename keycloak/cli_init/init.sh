@@ -7,10 +7,14 @@
 # # connect to the docker container and then run /opt/keycloak/cli_init/init.sh
 # docker exec --privileged -i keycloak sh /opt/keycloak/cli_init/init.sh
 
+# Keycloak Admin CLI documentation is available here: https://www.keycloak.org/docs/latest/server_admin/index.html
+
+#Loading .env variables
 set -o allexport
 source $(dirname "$0")/.env
 set +o allexport
 
+# Adding Kecloak Path to the path during this session
 export PATH=$PATH:$keycloak_path
 
 # Config credentials to connect to the keycloak instance
@@ -61,37 +65,98 @@ CID=$(kcadm.sh create clients \
   -s directAccessGrantsEnabled=true \
   -s serviceAccountsEnabled=true \
   -s authorizationServicesEnabled=true \
-  -s secret=$client_secret \
   -i
   )
-echo "Client '$CID' Created"
+  # -s secret=$client_secret \  # Replaced with secret generation command kcadm.sh create clients/$CID/client-secret -r $REALM
+
+# Generate a New Secret for the client
+kcadm.sh create clients/$CID/client-secret -r $REALM
+
+# Update the secret for the sake of not needing to change the FJ config. to be removed for PROD
+kcadm.sh update clients/$CID -s "secret=$client_secret" -r $REALM
+
+echo "Client '$client_id' with ID: '$CID' Created"
 
 # Create Group
-# group_name=forgejogroup
-
-# Create user1 and user 2
-# user1=user1
-# user1_pwd=user1
-# user2=user2
-# user2_pwd=user2
+echo "Creating Group '$group_name'"
+GROUP_ID=$(kcadm.sh create groups -r $REALM -s name=$group_name -i)
+echo "Group '$group_name' with ID: '$GROUP_ID' Created"
 
 # Add Attribute to group
-# group_attribute_key=user_type
-# group_attribute_value=forgejo_user
+kcadm.sh update groups/$GROUP_ID -s 'attributes.'$group_attribute_key'=["'$group_attribute_value'"]' -r $REALM
+
+# Create user1 and user 2
+echo "Creating User '$user1'"
+user1_id=$(kcadm.sh create users -r $REALM -s username=$user1 -s enabled=true -i)
+kcadm.sh update users/$user1_id -r $REALM -s 'attributes.email=["'$user1_email'"]' # Currently Not working - Awaiting Community Feedback then Bug Reportk
+kcadm.sh update users/$user1_id -r $REALM -s 'attributes.firstName=["'$user1'"]'
+kcadm.sh update users/$user1_id -r $REALM -s 'attributes.lastName=["'$user1'"]'
+kcadm.sh update users/$user1_id/reset-password -r $REALM -s type=password -s value=$user1_pwd -s temporary=false -n
+echo "User '$user1' with ID '$user1_id' created and password set"
+
+echo "Creating User '$user2'"
+user2_id=$(kcadm.sh create users -r $REALM -s username=$user2 -s enabled=true -i)
+kcadm.sh update users/$user2_id -r $REALM -s 'attributes.email=["'$user2_email'"]' # Currently Not working - Awaiting Community Feedback then Bug Report
+kcadm.sh update users/$user2_id -r $REALM -s 'attributes.firstName=["'$user2'"]'
+kcadm.sh update users/$user2_id -r $REALM -s 'attributes.lastName=["'$user2'"]'
+kcadm.sh update users/$user2_id/reset-password -r $REALM -s type=password -s value=$user2_pwd -s temporary=false -n
+echo "User '$user2' with ID '$user2_id' created and password set"
+
+# Check the list of users and their info before adding groups/roles
+echo "Listing all users in Realm '$REALM' before adding to groups/roles"
+kcadm.sh get users -r $REALM --offset 0 --limit 5
+
+# Add user1 to Group $group_name
+echo "Adding user $user1 ($user1_id) to group $group_name ($GROUP_ID)"
+kcadm.sh update users/$user1_id/groups/$GROUP_ID -r $REALM -s realm=$REALM -s userId=$user1_id -s groupId=$GROUP_ID -n
+
+# Check group membership of users after adding groups/roles
+echo "Listing all groups for user $user1 after adding to groups/roles"
+kcadm.sh get users/$user1_id/groups -r $REALM
+echo "Listing all groups for user $user2 after adding to groups/roles"
+kcadm.sh get users/$user2_id/groups -r $REALM
 
 # Create Client Scope
-# client_scope=forgejoclientscope
+echo "Creating Client Scope $client_scope"
+client_scope_id=$(kcadm.sh create -x "client-scopes" -r $REALM -s name=$client_scope -s protocol=openid-connect -i)
+echo "Created new Client Scope $client_scope with id '$client_scope_id'"
 
 # Create 2 Client Scope Mappers
-# client_scope_mapper_1_type="Group Membership"
-# client_scope_mapper_1_name=forgejogroup
-# client_scope_mapper_1_token_claim_name=forgejogrouptoken
-# client_scope_mapper_2_type="User Attribute"
-# client_scope_mapper_2_name=user_type
-# client_scope_mapper_2_user_attribute=user_type
-# client_scope_mapper_2_token_claim_name=user_type
+echo "Creating mapper $client_scope_mapper_1_name of type $client_scope_mapper_1_type"
+kcadm.sh create client-scopes/$client_scope_id/protocol-mappers/models \
+  -r $REALM \
+  -s protocol="openid-connect" \
+	-s protocolMapper=$client_scope_mapper_1_type \
+  -s name=$client_scope_mapper_1_name \
+	-s config='{"claim.name" : "'$client_scope_mapper_1_token_claim_name'",
+              "full.path" : true,
+              "id.token.claim" : true,
+              "access.token.claim" : true,
+              "lightweight.claim" : false,
+              "userinfo.token.claim" : true,
+              "introspection.token.claim" : true}'
+
+echo "Creating mapper $client_scope_mapper_2_name of type $client_scope_mapper_2_type"
+kcadm.sh create client-scopes/$client_scope_id/protocol-mappers/models \
+  -r $REALM \
+  -s protocol="openid-connect" \
+	-s protocolMapper=$client_scope_mapper_2_type \
+  -s name=$client_scope_mapper_2_name \
+	-s config='{"user.attribute" : "'$client_scope_mapper_2_user_attribute'",
+              "claim.name" : "'$client_scope_mapper_2_token_claim_name'",
+              "jsonType.label" : "String",
+              "id.token.claim" : true,
+              "access.token.claim" : true,
+              "lightweight.claim" : true,
+              "userinfo.token.claim" : true,
+              "introspection.token.claim" : true,
+              "multivalued" : false,
+              "aggregate.attrs" : false
+              }'
 
 # Add Client to client Scopes
+echo "Adding Scope $client_scope ($client_scope_id) to client $client_id ($CID)"
+kcadm.sh update clients/$CID/default-client-scopes/$client_scope_id  -r $REALM
 
 
 
