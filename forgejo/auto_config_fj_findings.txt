@@ -11,6 +11,8 @@ oauth2_key: forgejo
 oauth2_secret: 1pq0gKIrKY5Vi7EZeeqNXcsrRnGJWA4J
 # OpenID Connect Auto Discovery URL: http://YOUR-KEYCLOAK-IP:YOUR-KEYCLOAK-PORT/realms/YOUR-REALM-NAME/.well-known/openid-configuration
 open_id_connect_auto_discovery_url: http://keycloak:53531/realms/Humanitarians/.well-known/openid-configuration
+Required claim name: user_type
+Required claim value: forgejo_user
 
 security_protocol: 0
 port: 0
