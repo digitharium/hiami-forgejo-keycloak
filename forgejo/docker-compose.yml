@@ -47,6 +47,9 @@ services:
       - FORGEJO__service__DEFAULT_USER_VISIBILITY=public
       - FORGEJO__service__DEFAULT_ORG_VISIBILITY=public
       - FORGEJO__service__DEFAULT_ORG_MEMBER_VISIBLE=false
+      - FORGEJO__log__LEVEL=${FORGEJO_LOG_LEVEL}
+      - FORGEJO__log__MODE=${FORGEJO_LOG_MODE}
+      - FORGEJO__log__logger.access.MODE=${FORGEJO_LOG_MODE}
 
     restart: unless-stopped
     networks:

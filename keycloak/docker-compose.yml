@@ -12,7 +12,7 @@ services:
   keycloak:
     #hostname: ${KEYCLOAK_DOMAIN} # not sure which hostname to use
     container_name: keycloak
-    image: quay.io/keycloak/keycloak:24.0.4-0 #latest
+    image: quay.io/keycloak/keycloak:24.0.5-0 #latest
     ports:
       - ${KEYCLOAK_EXTERNAL_PORT}:${KEYCLOAK_INTERNAL_PORT}
     environment:
